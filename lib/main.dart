@@ -9,79 +9,134 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Hello World App'),
-        ),
-        body: Center(
-          child: HelloWorldWithAnimatedFontSize(),
+        appBar: CustomAppBar(),
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height, // Limit the height of the container
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  width: double.infinity,
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  height: 60, //use mediaquery
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Add Your Task',
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.add),
+                      ],
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 15),
+                  child: Text(
+                    'UPCOMING TASKS',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          //height: 50, // Adjust the height as needed
+                          height: MediaQuery.of(context).size.height*0.08,
+
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(8, 6, 8, 6),
+                            child: Row(
+                              children: [
+                                Radio(value: null, groupValue: null, onChanged: null),
+                                Expanded(
+                                  child: Text(
+                                    'I want to clean my home',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(106,0,0,0),
+                                    child: Text(
+                                      'Today',
+                                      style: TextStyle(fontSize: 12, color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class HelloWorldWithAnimatedFontSize extends StatefulWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  _HelloWorldWithAnimatedFontSizeState createState() =>
-      _HelloWorldWithAnimatedFontSizeState();
-}
-
-class _HelloWorldWithAnimatedFontSizeState
-    extends State<HelloWorldWithAnimatedFontSize>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fontSizeAnimation;
-  double _fontSize = 0.0;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1),
-    );
-    _fontSizeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 100.0,
-    ).animate(_controller);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _toggleFontSize() {
-    if (_controller.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else {
-      _controller.forward();
-    }
-  }
+  Size get preferredSize => const Size.fromHeight(200.0);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        AnimatedBuilder(
-          animation: _fontSizeAnimation,
-          builder: (context, child) {
-            return Text(
-              'Hello, World!',
-              style: TextStyle(
-                fontSize: _fontSizeAnimation.value,
-                fontWeight: FontWeight.normal,
-              ),
-            );
-          },
+    return AppBar(
+      flexibleSpace: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/appbarimage.png'),
+            fit: BoxFit.cover,
+          ),
         ),
-        ElevatedButton(
-          onPressed: _toggleFontSize,
-          child: Text('Toggle Font Size Animation'),
-        ),
-      ],
+      ),
+      automaticallyImplyLeading: false,
+      title: SizedBox(
+        height: preferredSize.height,
+        child: const Center(),
+      ),
     );
   }
 }
