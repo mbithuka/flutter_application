@@ -5,6 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -81,25 +83,21 @@ class MyApp extends StatelessWidget {
                             ],
                           ),
                           child: const Padding(
-                            padding: EdgeInsets.fromLTRB(8, 6, 8, 6),
+                            padding: EdgeInsets.fromLTRB(6, 6, 15, 6),
                             child: Row(
                               children: [
-                                Radio(value: null, groupValue: null, onChanged: null),
-                                Expanded(
-                                  child: Text(
+                                Checkbox(value: true, onChanged: null),
+                                 Text(
                                     'I want to clean my home',
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(106,0,0,0),
-                                    child: Text(
+                                    Spacer(),
+                                    Text(
                                       'Today',
                                       style: TextStyle(fontSize: 12, color: Colors.red),
                                     ),
-                                  ),
-                                ),
+                                  
+                                
                               ],
                             ),
                           ),
@@ -140,3 +138,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
+
