@@ -12,27 +12,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: const CustomAppBar(),
-        body: SingleChildScrollView(
-          child: Container(
-            decoration: const BoxDecoration(color: Colors.white),
-            height: MediaQuery.of(context).size.height, // Limit the height of the container
-            padding: const EdgeInsets.all(16.0),
+        body: Container(
+          decoration: const BoxDecoration(color: Colors.white),
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  width: MediaQuery.sizeOf(context).width * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.1,
                   constraints: const BoxConstraints(maxWidth: 400),
                   height: MediaQuery.of(context).size.height * 0.1,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey,
                         spreadRadius: 2,
                         blurRadius: 2,
-                        offset: const Offset(0, 3),
+                        offset: Offset(0, 3),
                       ),
                     ],
                   ),
@@ -64,52 +63,50 @@ class MyApp extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
-                
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 1,
-                                offset: const Offset(0, 3),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 2,
+                              blurRadius: 1,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(6, 6, 15, 6),
+                          child: Row(
+                            children: [
+                              TaskCheckbox(),
+                              Text(
+                                'I want to clean my home',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Spacer(),
+                              Text(
+                                'Today',
+                                style: TextStyle(fontSize: 12, color: Colors.red),
                               ),
                             ],
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.fromLTRB(6, 6, 15, 6),
-                            child: Row(
-                              children: [
-                                TaskCheckbox(),
-                                Text(
-                                  'I want to clean my home',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                Spacer(),
-                                Text(
-                                  'Today',
-                                  style: TextStyle(fontSize: 12, color: Colors.red),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.07 ,
-                  width: MediaQuery.sizeOf(context).width * 1,
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  width: MediaQuery.of(context).size.width * 1,
                   child: ElevatedButton(
                     onPressed: () {
                       // Add your onPressed logic here
@@ -118,8 +115,7 @@ class MyApp extends StatelessWidget {
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4), // Change the radius here
-                        ),
-                       // Background color of the button
+                      ),
                     ),
                     child: const Text(
                       'SEE ALL TASKS',
