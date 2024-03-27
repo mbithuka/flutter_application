@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: Offset(0, 3),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(0, 1),
                       ),
                     ],
                   ),
@@ -104,24 +104,27 @@ class MyApp extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  width: MediaQuery.of(context).size.width * 1,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add your onPressed logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), // Change the radius here
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 30, 8, 15),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Add your onPressed logic here
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 54, 130, 192),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4), // Change the radius here
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'SEE ALL TASKS',
-                      style: TextStyle(
-                        color: Colors.white, // Text color of the button
-                        fontSize: 16, // Adjust as needed
+                      child: const Text(
+                        'SEE ALL TASKS',
+                        style: TextStyle(
+                          color: Colors.white, // Text color of the button
+                          fontSize: 16, // Adjust as needed
+                        ),
                       ),
                     ),
                   ),
