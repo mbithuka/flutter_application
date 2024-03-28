@@ -64,46 +64,80 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
                 ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.grey,
-                              spreadRadius: 2,
-                              blurRadius: 1,
-                              offset: Offset(0, 3),
+  shrinkWrap: true,
+  itemCount: 4,
+  itemBuilder: (context, index) {
+    return Dismissible(
+      key: Key('item_$index'),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.white,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Color.fromARGB(255, 240, 205, 205),
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.red,
                             ),
-                          ],
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(6, 6, 15, 6),
-                          child: Row(
-                            children: [
-                              TaskCheckbox(),
-                              Text(
-                                'I want to clean my home',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              Spacer(),
-                              Text(
-                                'Today',
-                                style: TextStyle(fontSize: 12, color: Colors.red),
-                              ),
-                            ],
                           ),
-                        ),
-                      ),
-                    );
-                  },
+            ),
+            CircleAvatar(
+                          radius: 15,
+                          backgroundColor: Colors.blue,
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                        )
+          ],
+        ),
+      ),
+      onDismissed: (direction) {
+        // Implement delete or edit action here
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.1,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 2,
+                blurRadius: 1,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: const Padding(
+            padding: EdgeInsets.fromLTRB(6, 6, 15, 6),
+            child: Row(
+              children: [
+                TaskCheckbox(),
+                Text(
+                  'I want to clean my home',
+                  style: TextStyle(fontSize: 16),
                 ),
+                Spacer(),
+                Text(
+                  'Today',
+                  style: TextStyle(fontSize: 12, color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  },
+),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 30, 8, 15),
                   child: SizedBox(
